@@ -9,20 +9,11 @@ use Illuminate\Http\Request;
 class StudentController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Show the form for creating a new resource.
      */
-    public function create(string $group)
+    public function create(Group $group)
     {
-
-        return view('students.create', ['group' => Group::where('id', $group)->first()]);
+        return view('students.create', ['group' => $group]);
     }
 
     /**
@@ -41,10 +32,9 @@ class StudentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $group, string $student)
+    public function show(string $group, Student $student)
     {
-        $student = Student::where('id', $student)->first();
-        $group_title = Group::where('id', $group)->first()->title;
+        $group_title = $student->group->title;
         return view('students.show', ['student' => $student, 'group_title' => $group_title]);
     }
 }

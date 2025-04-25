@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Group;
-use App\Models\Student;
 use Illuminate\Http\Request;
 
 class GroupController extends Controller
@@ -40,10 +39,9 @@ class GroupController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Group $group)
     {
-        $group = Group::where('id', $id)->first();
-        $students = Student::where('group_id', $id)->get();
+        $students = $group->students;
         return view('groups.show', ['group' => $group, 'students' => $students]);
     }
 }
